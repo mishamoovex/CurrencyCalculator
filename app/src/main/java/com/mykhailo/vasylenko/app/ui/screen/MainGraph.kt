@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mykhailo.vasylenko.app.ui.components.SnackbarManager
+import com.mykhailo.vasylenko.feature.history.ui.screen.ExchangeHistoryRoute
 import com.mykhailo.vasylenko.features.calculator.ui.screen.CalculatorRoute
 
 internal sealed class MainGraph(val route: String) {
@@ -29,12 +30,16 @@ internal fun MainNavHost(
 
         composable(MainGraph.Calculator.route) {
             CalculatorRoute(
-                viewModel = hiltViewModel()
+                viewModel = hiltViewModel(),
+                selectCurrency = {
+
+                },
+                showMessage = snackbarManager::showMessage
             )
         }
 
         composable(MainGraph.History.route) {
-            CalculatorRoute(
+            ExchangeHistoryRoute(
                 viewModel = hiltViewModel()
             )
         }

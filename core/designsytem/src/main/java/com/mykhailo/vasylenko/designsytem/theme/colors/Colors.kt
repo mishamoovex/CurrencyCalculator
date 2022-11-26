@@ -25,14 +25,15 @@ internal val DarkColorPalette = ApplicationColors(
     textOnSnackbar = Color.Black,
     textAction = LightGreen,
     textHint = PrimaryGray,
+    textLink = Color(0xFF0E84F2),
 
     backgroundSnackbar = Color.DarkGray,
     backgroundButton = Color.Black,
-    cardBackground = Color(0xFFF1F1F1),
+    cardBackground = Color.White,
 
     actionColor = LightGreen,
 
-    surface = Color.White
+    surface = Color(0xFFF1F1F1)
 )
 
 

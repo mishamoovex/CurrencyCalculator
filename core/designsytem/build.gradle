@@ -5,7 +5,7 @@ plugins {
 
 
 android {
-    namespace 'com.solinarity.core.designsystem'
+    namespace 'com.mykhailo.vasylenko.designsystem'
     compileSdk gradleDependencies.compileSdk
 
     defaultConfig {

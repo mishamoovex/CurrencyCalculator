@@ -1,7 +1,6 @@
 package com.mykhailo.vasylenko.designsytem.components
 
 
-import android.annotation.SuppressLint
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -16,9 +15,9 @@ import androidx.compose.ui.unit.dp
 @Stable
 fun Modifier.elevationShadow(
     color: Color = Color.Black,
-    alpha: Float = 0.08f,
-    borderRadius: Dp = 16.dp,
-    shadowRadius: Dp = 16.dp,
+    alpha: Float = 0.2f,
+    borderRadius: Dp = 26.dp,
+    shadowRadius: Dp = 26.dp,
     offsetY: Dp = 6.dp,
     offsetX: Dp = 0.dp
 ) = composed {

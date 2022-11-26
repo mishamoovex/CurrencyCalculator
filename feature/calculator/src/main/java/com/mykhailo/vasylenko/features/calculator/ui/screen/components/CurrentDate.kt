@@ -21,8 +21,7 @@ fun CurrentDate(
     onOpenCalendarClicked: () -> Unit
 ) {
     Surface(
-        modifier = modifier
-            .padding(16.dp),
+        modifier = modifier,
         color = ApplicationTheme.colors.backgroundButton,
         shape = ApplicationTheme.shapes.medium,
         contentColor = ApplicationTheme.colors.textOnButton

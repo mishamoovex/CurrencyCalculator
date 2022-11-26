@@ -56,7 +56,6 @@ internal fun MainScreen(
                 )
 
                 LaunchedEffect(Unit) {
-                    delay(200)
                     hideSplashScreen()
                 }
             }

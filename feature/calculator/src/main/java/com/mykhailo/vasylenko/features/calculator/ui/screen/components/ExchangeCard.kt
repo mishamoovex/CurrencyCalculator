@@ -23,7 +23,7 @@ fun ExchangeCard(
         modifier = modifier
             .fillMaxWidth()
             .elevationShadow(),
-        color = ApplicationTheme.colors.surface,
+        color = ApplicationTheme.colors.cardBackground,
         shape = ApplicationTheme.shapes.large
     ) {
         Column(
@@ -31,7 +31,7 @@ fun ExchangeCard(
                 .fillMaxWidth()
                 .padding(
                     horizontal = 16.dp,
-                    vertical = 8.dp
+                    vertical = 16.dp
                 )
         ) {
             ExchangeItem(
