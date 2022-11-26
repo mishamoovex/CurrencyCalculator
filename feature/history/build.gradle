@@ -1,36 +1,19 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
 }
 
 android {
-    namespace 'com.mykhailo.vasylenko.app'
+    namespace 'com.mykhailo.vasylenko.feature.history'
     compileSdk gradleDependencies.compileSdk
 
     defaultConfig {
-        applicationId "com.mykhailo.vasylenko.app"
         minSdk gradleDependencies.minSdk
         targetSdk gradleDependencies.targetSdk
-        versionCode 1
-        versionName "1.0"
 
-        vectorDrawables {
-            useSupportLibrary true
-        }
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            minifyEnabled false
-            shrinkResources false
-        }
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     compileOptions {
@@ -46,28 +29,15 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = conposeCompillerVersion
     }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
 dependencies {
     implementation(project(":core:designsytem"))
-    implementation(project(":core:network"))
     implementation(project(":core:common"))
-    implementation(project(":core:store"))
-    implementation(project(":feature:history"))
-    implementation(project(":feature:calculator"))
 
     implementation coroutines.lib
 
-    implementation androidX.splash
-    implementation androidX.navigation
-
     //Compose UI
-    implementation compose.activity
     implementation compose.ui
     implementation compose.material
     implementation compose.runtime
@@ -76,10 +46,7 @@ dependencies {
     debugImplementation compose.uiTooling
     implementation compose.uiToolingPreview
 
-    implementation accompanist.systemUi
-
     //Hilt
     implementation hiltDependencies.lib
-    implementation hiltDependencies.navigation
     kapt hiltDependencies.kapt
 }

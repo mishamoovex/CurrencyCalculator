@@ -1,4 +1,4 @@
-package com.mykhailo.vasylenko.app.ui.calculator.screen.components
+package com.mykhailo.vasylenko.app.ui.components
 
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.Snackbar

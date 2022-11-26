@@ -1,7 +1,7 @@
 package com.mykhailo.vasylenko.app.di
 
-import com.mykhailo.vasylenko.app.data.currency.ExchangeCurrenciesRepository
-import com.mykhailo.vasylenko.app.data.currency.ExchangeCurrenciesRepositoryImpl
+import com.mykhailo.vasylenko.app.data.ExchangeCurrenciesRepository
+import com.mykhailo.vasylenko.app.data.ExchangeCurrenciesRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface RepositoryModule {
+internal interface RepositoryModule {
 
     @Binds
     @Singleton

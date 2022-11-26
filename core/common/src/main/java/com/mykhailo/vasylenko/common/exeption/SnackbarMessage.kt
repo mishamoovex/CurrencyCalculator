@@ -1,4 +1,4 @@
-package com.mykhailo.vasylenko.common.messaging
+package com.mykhailo.vasylenko.common.exeption
 
 import androidx.annotation.StringRes
 import java.util.*

@@ -1,5 +1,6 @@
-package com.mykhailo.vasylenko.common.messaging
+package com.mykhailo.vasylenko.app.ui.components
 
+import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

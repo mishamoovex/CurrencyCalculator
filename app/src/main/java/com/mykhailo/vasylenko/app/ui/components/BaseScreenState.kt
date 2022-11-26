@@ -1,4 +1,4 @@
-package com.mykhailo.vasylenko.app.ui.calculator.state
+package com.mykhailo.vasylenko.app.ui.components
 
 import android.content.res.Resources
 import androidx.compose.material.ScaffoldState
@@ -6,7 +6,8 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import com.mykhailo.vasylenko.common.messaging.SnackbarManager
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -18,19 +19,21 @@ fun rememberBaseScreenState(
     scaffoldState: ScaffoldState = rememberScaffoldState(),
     snackbarManager: SnackbarManager = SnackbarManager(),
     resources: Resources = resources(),
+    navHostController: NavHostController = rememberNavController(),
     coroutineScope: CoroutineScope = rememberCoroutineScope()
-) = remember(scaffoldState, snackbarManager, resources, coroutineScope) {
-    BaseScreenState(scaffoldState, snackbarManager, resources, coroutineScope)
+) = remember(scaffoldState, snackbarManager, resources, navHostController, coroutineScope) {
+    BaseScreenState(scaffoldState, snackbarManager, resources, navHostController, coroutineScope)
 }
 
 /**
  * Responsible for holding state related to [BaseScreenState] and containing UI-related logic.
  */
 @Stable
-open class BaseScreenState(
-    open val scaffoldState: ScaffoldState,
-    open val snackbarManager: SnackbarManager,
-    open val resources: Resources,
+class BaseScreenState(
+    val scaffoldState: ScaffoldState,
+    val snackbarManager: SnackbarManager,
+    val resources: Resources,
+    val navHostController: NavHostController,
     coroutineScope: CoroutineScope
 ) {
 

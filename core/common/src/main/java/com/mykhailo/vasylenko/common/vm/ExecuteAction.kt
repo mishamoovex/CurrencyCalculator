@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mykhailo.vasylenko.common.exeption.ExceptionHandler
 import com.mykhailo.vasylenko.common.exeption.isCoroutineCancellation
-import com.mykhailo.vasylenko.common.messaging.SnackbarMessage
+import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

@@ -25,10 +25,12 @@ buildscript {
                 lib: "androidx.datastore:datastore:1.0.0"
         ]
 
-
-        //AndroidX core RN https://developer.android.com/jetpack/androidx/releases/core
+        navigationVersin = "2.5.1"
         androidX = [
-                lib: "androidx.core:core-ktx:1.9.0"
+                splash: "androidx.core:core-splashscreen:1.0.0",
+                lib: "androidx.core:core-ktx:1.9.0",
+                navigation : "androidx.navigation:navigation-compose:$navigationVersin",
+
         ]
 
         //Lifecycle RN https://developer.android.com/jetpack/androidx/releases/lifecycle#2.5.1
@@ -44,8 +46,7 @@ buildscript {
                 lib                : "com.google.dagger:hilt-android:$hiltVersion",
                 kapt               : "com.google.dagger:hilt-android-compiler:$hiltVersion",
                 classpath          : "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion",
-                //Hilt for navigation RN https://developer.android.com/jetpack/compose/libraries#hilt
-                navigation         : "androidx.navigation:navigation-compose:2.5.0"
+                navigation: "androidx.hilt:hilt-navigation-compose:1.0.0"
         ]
 
         composeUiVersion = "1.2.0-rc03"

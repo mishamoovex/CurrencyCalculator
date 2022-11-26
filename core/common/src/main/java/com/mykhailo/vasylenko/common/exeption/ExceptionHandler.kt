@@ -4,12 +4,12 @@ import com.mykhailo.vasylenko.common.R
 
 object ExceptionHandler {
 
-    fun errorToMessage(e: Exception?): com.mykhailo.vasylenko.common.messaging.SnackbarMessage =
+    fun errorToMessage(e: Exception?): SnackbarMessage =
         if (e?.isNoInternetException() == true) {
-            com.mykhailo.vasylenko.common.messaging.SnackbarMessage(R.string.msg_error_no_internet)
+            SnackbarMessage(R.string.msg_error_no_internet)
         } else {
             val placeholders = e?.message ?: "Unknown error"
-            com.mykhailo.vasylenko.common.messaging.SnackbarMessage(
+            SnackbarMessage(
                 R.string.msg_unknown_error,
                 arrayOf(placeholders)
             )
