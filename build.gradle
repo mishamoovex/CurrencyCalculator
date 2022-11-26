@@ -14,6 +14,18 @@ buildscript {
                 lib: "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
         ]
 
+        //Serialization RN https://github.com/Kotlin/kotlinx.coroutines
+        serialization = [
+                lib      : "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0",
+                classpath: "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
+        ]
+
+        //Data store RN https://developer.android.com/topic/libraries/architecture/datastore
+        dataStore = [
+                lib: "androidx.datastore:datastore:1.0.0"
+        ]
+
+
         //AndroidX core RN https://developer.android.com/jetpack/androidx/releases/core
         androidX = [
                 lib: "androidx.core:core-ktx:1.9.0"
@@ -85,6 +97,7 @@ buildscript {
 
     dependencies {
         classpath hiltDependencies.classpath
+        classpath serialization.classpath
     }
 }
 

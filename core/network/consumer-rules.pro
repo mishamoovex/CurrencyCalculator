@@ -1,0 +1,1 @@
+-keep class com.mykhailo.vasylenko.network.model.**{*;}

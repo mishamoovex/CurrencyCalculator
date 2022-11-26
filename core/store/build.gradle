@@ -2,11 +2,12 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.plugin.serialization'
     id 'kotlin-kapt'
 }
 
 android {
-    namespace 'com.mykhailo.vasylenko.common'
+    namespace 'com.mykhailo.vasylenko.store'
     compileSdk gradleDependencies.compileSdk
 
     defaultConfig {
@@ -24,11 +25,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:dispatchers"))
 
+    implementation dataStore.lib
+    //Kotlin
     implementation coroutines.lib
-
-    implementation lifecycle.viewModelCompose
-
+    implementation serialization.lib
     //Hilt
     implementation hiltDependencies.lib
     kapt hiltDependencies.kapt

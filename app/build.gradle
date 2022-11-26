@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
@@ -57,6 +58,7 @@ dependencies {
     implementation(project(":core:designsytem"))
     implementation(project(":core:network"))
     implementation(project(":core:common"))
+    implementation(project(":core:store"))
 
     implementation coroutines.lib
 
@@ -76,5 +78,4 @@ dependencies {
     implementation hiltDependencies.lib
     implementation hiltDependencies.navigation
     kapt hiltDependencies.kapt
-
 }
