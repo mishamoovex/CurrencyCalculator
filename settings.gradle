@@ -16,3 +16,4 @@ rootProject.name = "CurrencyCalculator"
 include ':app'
 include ':core:designsytem'
 include ':core:network'
+include ':core:common'

@@ -17,7 +17,18 @@ private val Rose = Color(0xFFC9A7B5)
 
 
 internal val DarkColorPalette = ApplicationColors(
+    text = Color.Black,
+    textError = Color.Red,
+    textOnButton = Color.White,
+    textOnSnackbar = Color.Black,
 
+    backgroundSnackbar = Color.DarkGray,
+    backgroundButton = Color.Black,
+    cardBackground = Color(0xFFF1F1F1),
+
+    actionColor = Color(0xFFD2FAAB),
+
+    surface = Color.White
 )
 
 

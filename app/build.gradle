@@ -55,6 +55,8 @@ android {
 
 dependencies {
     implementation(project(":core:designsytem"))
+    implementation(project(":core:network"))
+    implementation(project(":core:common"))
 
     implementation coroutines.lib
 

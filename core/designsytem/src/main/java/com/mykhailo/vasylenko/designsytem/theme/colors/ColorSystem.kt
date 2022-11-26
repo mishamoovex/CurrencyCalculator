@@ -8,10 +8,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 
 @Stable
 class ApplicationColors(
 
+    val text: Color,
+    val textError: Color,
+    val textOnButton: Color,
+    val textOnSnackbar: Color,
+
+    val backgroundSnackbar: Color,
+    val backgroundButton: Color,
+    val cardBackground: Color,
+
+    val actionColor: Color,
+
+    val surface: Color
 )
 
 internal val LocalApplicationColors = staticCompositionLocalOf<ApplicationColors> {
