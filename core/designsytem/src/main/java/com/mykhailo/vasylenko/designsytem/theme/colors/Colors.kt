@@ -14,19 +14,23 @@ import com.mykhailo.vasylenko.designsytem.theme.ApplicationTheme
 private val PlummyDark = Color(0xFF633347)
 private val DeepRose = Color(0xFFB75784)
 private val Rose = Color(0xFFC9A7B5)
-
+private val LightGreen =  Color(0xFFD2FAAB)
+private val PrimaryGray = Color(0xFFA3A3A3)
+private val DarkGray = Color(0xFF575757)
 
 internal val DarkColorPalette = ApplicationColors(
-    text = Color.Black,
+    text = DarkGray,
     textError = Color.Red,
     textOnButton = Color.White,
     textOnSnackbar = Color.Black,
+    textAction = LightGreen,
+    textHint = PrimaryGray,
 
     backgroundSnackbar = Color.DarkGray,
     backgroundButton = Color.Black,
     cardBackground = Color(0xFFF1F1F1),
 
-    actionColor = Color(0xFFD2FAAB),
+    actionColor = LightGreen,
 
     surface = Color.White
 )

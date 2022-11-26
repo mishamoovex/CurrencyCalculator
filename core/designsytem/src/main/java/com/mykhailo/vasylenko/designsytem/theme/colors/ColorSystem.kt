@@ -14,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 class ApplicationColors(
 
     val text: Color,
+    val textAction: Color,
+    val textHint: Color,
     val textError: Color,
     val textOnButton: Color,
     val textOnSnackbar: Color,
