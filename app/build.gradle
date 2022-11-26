@@ -54,6 +54,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:designsytem"))
 
     implementation coroutines.lib
 
