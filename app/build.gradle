@@ -1,0 +1,77 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.mykhailo.vasylenko.app'
+    compileSdk gradleDependencies.compileSdk
+
+    defaultConfig {
+        applicationId "com.mykhailo.vasylenko.app"
+        minSdk gradleDependencies.minSdk
+        targetSdk gradleDependencies.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = conposeCompillerVersion
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation coroutines.lib
+
+    //Compose UI
+    implementation compose.activity
+    implementation compose.ui
+    implementation compose.material
+    implementation compose.runtime
+    implementation compose.foundation
+    implementation compose.foundationLayout
+    debugImplementation compose.uiTooling
+    implementation compose.uiToolingPreview
+
+    implementation accompanist.systemUi
+
+    //Hilt
+    implementation hiltDependencies.lib
+    implementation hiltDependencies.navigation
+    kapt hiltDependencies.kapt
+
+}

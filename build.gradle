@@ -1,0 +1,95 @@
+buildscript {
+    ext {
+
+        gradleDependencies = [
+                compileSdk: 33,
+                targetSdk : 33,
+                minSdk    : 26
+        ]
+
+        kotlinVersion = "1.7.10"
+
+        //Coroutines RN https://github.com/Kotlin/kotlinx.coroutines
+        coroutines = [
+                lib: "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+        ]
+
+        //AndroidX core RN https://developer.android.com/jetpack/androidx/releases/core
+        androidX = [
+                lib: "androidx.core:core-ktx:1.9.0"
+        ]
+
+        //Lifecycle RN https://developer.android.com/jetpack/androidx/releases/lifecycle#2.5.1
+        lifecycleVersion = "2.5.1"
+        lifecycle = [
+                lifecycleRuntime: "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion",
+                viewModelCompose: "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
+        ]
+
+        hiltVersion = "2.44"
+        hiltDependencies = [
+                //Hilt RN https://dagger.dev/hilt/gradle-setup
+                lib                : "com.google.dagger:hilt-android:$hiltVersion",
+                kapt               : "com.google.dagger:hilt-android-compiler:$hiltVersion",
+                classpath          : "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion",
+                //Hilt for navigation RN https://developer.android.com/jetpack/compose/libraries#hilt
+                navigation         : "androidx.navigation:navigation-compose:2.5.0"
+        ]
+
+        composeUiVersion = "1.2.0-rc03"
+        conposeCompillerVersion = "1.3.0"
+        compose = [
+                //Compose activity RN https://developer.android.com/jetpack/androidx/releases/activity#version_160_3
+                activity        : "androidx.activity:activity-compose:1.6.0",
+                //Compose UI RN https://developer.android.com/jetpack/compose/setup
+                ui              : "androidx.compose.ui:ui:$composeUiVersion",
+                material        : "androidx.compose.material:material:$composeUiVersion",
+                runtime         : "androidx.compose.runtime:runtime:$composeUiVersion",
+                foundation      : "androidx.compose.foundation:foundation:$composeUiVersion",
+                foundationLayout: "androidx.compose.foundation:foundation-layout:$composeUiVersion",
+                //Compose tooling RN https://developer.android.com/jetpack/compose/tooling
+                uiTooling: "androidx.compose.ui:ui-tooling:1.3.0",
+                uiToolingPreview: "androidx.compose.ui:ui-tooling-preview:1.3.0",
+        ]
+
+        //Accompanist RN https://github.com/google/accompanist/releases
+        accompanistVersion = "0.26.5-rc"
+        accompanist = [
+                "systemUi": "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
+        ]
+
+        //Retrofit RN https://github.com/square/retrofit/blob/master/CHANGELOG.md
+        retrofitVersion = "2.9.0"
+        retrofit = [
+                lib          : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+                jsonConverter: "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+        ]
+
+        //OkHttp RN https://github.com/square/okhttp/blob/master/CHANGELOG.md
+        okHttpVersion = "4.10.0"
+        okHttp = [
+                lib    : "com.squareup.okhttp3:okhttp:$okHttpVersion",
+                logging: "com.squareup.okhttp3:logging-interceptor:$okHttpVersion",
+        ]
+
+        //Moshi RN https://github.com/square/moshi/blob/master/CHANGELOG.md
+        moshiVersion = "1.13.0"
+        moshi = [
+                lib          : "com.squareup.moshi:moshi:$moshiVersion",
+                kapt         : "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion",
+                adapter      : "com.squareup.moshi:moshi-adapters:$moshiVersion",
+                kotlin       : "com.squareup.moshi:moshi-kotlin:$moshiVersion",
+                jsonConverter: "com.squareup.retrofit2:converter-moshi:2.9.0",
+        ]
+    }
+
+    dependencies {
+        classpath hiltDependencies.classpath
+    }
+}
+
+plugins {
+    id 'com.android.application' version '7.3.1' apply false
+    id 'com.android.library' version '7.3.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+}
