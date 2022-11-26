@@ -1,0 +1,55 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.mykhailo.vasylenko.network'
+    compileSdk gradleDependencies.compileSdk
+
+    defaultConfig {
+        minSdk gradleDependencies.minSdk
+        targetSdk gradleDependencies.targetSdk
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            buildConfigField "String", "SERVER_URL", '"https://api.mamatalk.com.au"'
+        }
+        debug {
+            buildConfigField "String", "SERVER_URL", '"https://api.mamatalk.com.au"'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation coroutines.lib
+    //Hilt
+    implementation hiltDependencies.lib
+    kapt hiltDependencies.kapt
+    //Network
+    implementation retrofit.lib
+    implementation retrofit.jsonConverter
+
+    implementation okHttp.lib
+    implementation okHttp.logging
+
+    implementation moshi.lib
+    implementation moshi.adapter
+    implementation moshi.kotlin
+    implementation moshi.jsonConverter
+    kapt moshi.kapt
+}
