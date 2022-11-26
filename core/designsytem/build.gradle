@@ -25,7 +25,6 @@ android {
 dependencies {
 
     //Compose UI
-    implementation compose.activity
     implementation compose.ui
     implementation compose.material
     implementation compose.runtime
