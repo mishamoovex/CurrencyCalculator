@@ -58,6 +58,7 @@ buildscript {
                 ui              : "androidx.compose.ui:ui:$composeUiVersion",
                 material        : "androidx.compose.material:material:$composeUiVersion",
                 runtime         : "androidx.compose.runtime:runtime:$composeUiVersion",
+                liveData        : "androidx.compose.runtime:runtime-livedata:$composeUiVersion",
                 foundation      : "androidx.compose.foundation:foundation:$composeUiVersion",
                 foundationLayout: "androidx.compose.foundation:foundation-layout:$composeUiVersion",
                 //Compose tooling RN https://developer.android.com/jetpack/compose/tooling

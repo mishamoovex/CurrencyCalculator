@@ -71,6 +71,7 @@ dependencies {
     implementation compose.ui
     implementation compose.material
     implementation compose.runtime
+    implementation compose.liveData
     implementation compose.foundation
     implementation compose.foundationLayout
     debugImplementation compose.uiTooling
