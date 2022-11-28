@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
 import com.mykhailo.vasylenko.common.state.MessageState
+import com.mykhailo.vasylenko.dispatchers.DispatcherDefault
 import com.mykhailo.vasylenko.dispatchers.DispatcherIo
 import com.mykhailo.vasylenko.features.calculator.data.ExchangeStatRepository
 import com.mykhailo.vasylenko.features.calculator.domain.model.ExchangeStat
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CalculatorVM @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
     private val statsRepository: ExchangeStatRepository
 ) : ViewModel() {
 
@@ -46,7 +48,8 @@ class CalculatorVM @Inject constructor(
             currency = null,
             currencyCode = null,
             isLoading = false,
-            buttonTitle = "Select origin currency"
+            buttonTitle = "Select original currency",
+            isFieldEnabled = false
         )
     )
 
@@ -57,7 +60,8 @@ class CalculatorVM @Inject constructor(
             currency = null,
             currencyCode = null,
             isLoading = false,
-            buttonTitle = "Select trarget currency"
+            buttonTitle = "Select target currency",
+            isFieldEnabled = true
         )
     )
 
@@ -71,24 +75,30 @@ class CalculatorVM @Inject constructor(
             messageState = message,
             dateState = date,
             cardState = ExchangeCardState(
-                itemOriginal = origin,
-                itemTarget = target
+                itemOriginal = origin.copy(
+                    isFieldEnabled = target.currency != null
+                ),
+                itemTarget = target,
+                showTargetCurrencyField = target.currencyCode != null
             ),
             showCurrencyCalculator = date.selectedDate != null
         )
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(),
-        initialValue = CalculatorScreenState(
-            messageState = messageState.value,
-            dateState = dateState.value,
-            cardState = ExchangeCardState(
-                itemOriginal = originCurrencyState.value,
-                itemTarget = targetCurrencyState.value
-            ),
-            showCurrencyCalculator = false
+    }
+        .flowOn(defaultDispatcher)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = CalculatorScreenState(
+                messageState = messageState.value,
+                dateState = dateState.value,
+                cardState = ExchangeCardState(
+                    itemOriginal = originCurrencyState.value,
+                    itemTarget = targetCurrencyState.value,
+                    showTargetCurrencyField = false
+                ),
+                showCurrencyCalculator = false
+            )
         )
-    )
 
     private fun setMessage(message: SnackbarMessage?) {
         messageState.update {

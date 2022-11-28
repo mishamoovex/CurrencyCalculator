@@ -47,7 +47,8 @@ fun ExchangeItem(
                     text = "0.0",
                     style = ApplicationTheme.typography.h2
                 )
-            }
+            },
+            enabled = state.isFieldEnabled
         )
     }
 }
@@ -95,7 +96,8 @@ private fun ExchangeItemPreview_HasCurrency() {
         currency = "USD - United States Dollar",
         buttonTitle = "Select original currency",
         isLoading = false,
-        currencyCode = null
+        currencyCode = null,
+        isFieldEnabled = true
     )
     ApplicationTheme {
         ExchangeItem(
@@ -114,7 +116,8 @@ private fun ExchangeItemPreview_NoCurrency() {
         currency = null,
         buttonTitle = "Select original currency",
         isLoading = false,
-        currencyCode = null
+        currencyCode = null,
+        isFieldEnabled = true
     )
     ApplicationTheme {
         ExchangeItem(

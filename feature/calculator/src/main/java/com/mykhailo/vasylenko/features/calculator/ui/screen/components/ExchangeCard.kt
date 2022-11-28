@@ -40,23 +40,25 @@ fun ExchangeCard(
                     selectCurrency(ExchangeItemType.ORIGINAL)
                 }
             )
-            Spacer(
-                modifier = Modifier.height(16.dp)
-            )
-            Divider(
-                modifier = Modifier.fillMaxWidth(),
-                color = ApplicationTheme.colors.textHint,
-                thickness = 1.dp
-            )
-            Spacer(
-                modifier = Modifier.height(16.dp)
-            )
-            ExchangeItem(
-                state = state.itemTarget,
-                onSelectCurrencyClicked = {
-                    selectCurrency(ExchangeItemType.TARGET)
-                }
-            )
+            if (state.showTargetCurrencyField) {
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
+                Divider(
+                    modifier = Modifier.fillMaxWidth(),
+                    color = ApplicationTheme.colors.textHint,
+                    thickness = 1.dp
+                )
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
+                ExchangeItem(
+                    state = state.itemTarget,
+                    onSelectCurrencyClicked = {
+                        selectCurrency(ExchangeItemType.TARGET)
+                    }
+                )
+            }
         }
     }
 }
@@ -70,7 +72,8 @@ private fun ExchangeCardPreview() {
         currency = "USD - United States Dollar",
         buttonTitle = "Select original currency",
         isLoading = false,
-        currencyCode = null
+        currencyCode = null,
+        isFieldEnabled = true
     )
     val stateTarget = ExchangeItemState(
         value = "",
@@ -78,10 +81,13 @@ private fun ExchangeCardPreview() {
         currency = null,
         buttonTitle = "Select target currency",
         isLoading = false,
-        currencyCode = null
+        currencyCode = null,
+        isFieldEnabled = true
     )
     val state = ExchangeCardState(
-        stateOrigin, stateTarget
+        stateOrigin,
+        stateTarget,
+        false
     )
     ApplicationTheme {
         ExchangeCard(
