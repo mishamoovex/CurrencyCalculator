@@ -221,7 +221,6 @@ class CalculatorVM @Inject constructor(
 
     private fun setTargetValue(value: String) {
         executeAction(
-            dispatcher = ioDispatcher,
             onError = { setMessage(it) },
             toDo = {
                 targetCurrencyState.update {
