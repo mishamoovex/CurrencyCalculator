@@ -14,6 +14,7 @@ import com.mykhailo.vasylenko.designsytem.components.elevationShadow
 import com.mykhailo.vasylenko.designsytem.theme.ApplicationTheme
 import com.mykhailo.vasylenko.features.calculator.ui.screen.components.CurrentDate
 import com.mykhailo.vasylenko.features.calculator.ui.screen.components.ExchangeCard
+import com.mykhailo.vasylenko.features.calculator.ui.screen.components.rememberDatePickerDialog
 import com.mykhailo.vasylenko.features.calculator.ui.state.CalculatorScreenState
 import com.mykhailo.vasylenko.features.calculator.ui.state.ExchangeItemType
 
@@ -39,6 +40,10 @@ internal fun CalculatorScreen(
     selectCurrency: (ExchangeItemType) -> Unit,
     showMessage: (SnackbarMessage) -> Unit
 ) {
+    val datePickerDialog = rememberDatePickerDialog(
+        onDateSelected = screenState.dateState.onDateSelected
+    )
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -56,7 +61,9 @@ internal fun CalculatorScreen(
         )
         CurrentDate(
             displayDate = screenState.dateState.displayDate,
-            onOpenCalendarClicked = {},
+            onOpenCalendarClicked = {
+                datePickerDialog.show()
+            },
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .elevationShadow()

@@ -35,11 +35,14 @@ dependencies {
     implementation(project(":core:designsytem"))
     implementation(project(":core:network"))
     implementation(project(":core:common"))
+    implementation(project(":core:dispatchers"))
     implementation(project(":core:store"))
 
     implementation coroutines.lib
 
     implementation lifecycle.viewModelCompose
+
+    implementation androidX.materialDesign
 
     //Compose UI
     implementation compose.ui

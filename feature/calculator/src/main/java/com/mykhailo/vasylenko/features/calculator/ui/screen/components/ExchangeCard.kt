@@ -70,7 +70,8 @@ private fun ExchangeCardPreview() {
         currency = "USD - United States Dollar",
         buttonTitle = "Select original currency",
         isLoading = false,
-        isFieldEnabled = true
+        isFieldEnabled = true,
+        currencyCode = null
     )
     val stateTarget = ExchangeItemState(
         value = "",
@@ -78,7 +79,8 @@ private fun ExchangeCardPreview() {
         currency = null,
         buttonTitle = "Select target currency",
         isLoading = false,
-        isFieldEnabled = false
+        isFieldEnabled = false,
+        currencyCode = null
     )
     val state = ExchangeCardState(
         stateOrigin, stateTarget

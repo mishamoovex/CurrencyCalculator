@@ -2,6 +2,7 @@ package com.mykhailo.vasylenko.features.calculator.ui.screen.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -23,19 +24,18 @@ fun CurrentDate(
     Surface(
         modifier = modifier,
         color = ApplicationTheme.colors.backgroundButton,
-        shape = ApplicationTheme.shapes.medium,
+        shape = RoundedCornerShape(8.dp),
         contentColor = ApplicationTheme.colors.textOnButton
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.clickable {
+                onOpenCalendarClicked()
+            }
         ) {
-            CalendarButton(
-                modifier = Modifier.clickable {
-                    onOpenCalendarClicked()
-                }
-            )
+            CalendarButton()
             Spacer(
-                modifier = Modifier.width(16.dp)
+                modifier = Modifier.width(8.dp)
             )
             Text(
                 text = displayDate,
@@ -54,10 +54,12 @@ private fun CalendarButton(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        modifier = modifier.size(48.dp),
+        modifier = modifier
+            .size(48.dp)
+            .padding(4.dp),
         color = ApplicationTheme.colors.actionColor,
         contentColor = ApplicationTheme.colors.text,
-        shape = ApplicationTheme.shapes.medium
+        shape = RoundedCornerShape(8.dp)
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -74,18 +76,21 @@ private fun CalendarButton(
 
 @Preview
 @Composable
-private fun CalendarButtonPreview() {
+private fun CurrentDatePreview() {
     ApplicationTheme {
-        CalendarButton()
+        CurrentDate(
+            displayDate = "20.11.2022",
+            onOpenCalendarClicked = {}
+        )
     }
 }
 
 @Preview
 @Composable
-private fun CurrentDatePreview() {
+private fun CurrentDatePreview_NoDate() {
     ApplicationTheme {
         CurrentDate(
-            displayDate = "20.11.2022",
+            displayDate = "Click here to select date",
             onOpenCalendarClicked = {}
         )
     }

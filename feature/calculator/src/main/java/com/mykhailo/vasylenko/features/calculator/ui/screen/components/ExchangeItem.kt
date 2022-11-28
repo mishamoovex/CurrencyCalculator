@@ -96,7 +96,8 @@ private fun ExchangeItemPreview_HasCurrency() {
         currency = "USD - United States Dollar",
         buttonTitle = "Select original currency",
         isLoading = false,
-        isFieldEnabled = true
+        isFieldEnabled = true,
+        currencyCode = null
     )
     ApplicationTheme {
         ExchangeItem(
@@ -115,7 +116,8 @@ private fun ExchangeItemPreview_NoCurrency() {
         currency = null,
         buttonTitle = "Select original currency",
         isLoading = false,
-        isFieldEnabled = false
+        isFieldEnabled = false,
+        currencyCode = null
     )
     ApplicationTheme {
         ExchangeItem(

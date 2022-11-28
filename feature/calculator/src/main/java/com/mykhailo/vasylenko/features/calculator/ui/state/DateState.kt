@@ -1,8 +1,9 @@
 package com.mykhailo.vasylenko.features.calculator.ui.state
 
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 data class DateState(
+    val selectedDate: LocalDate?,
     val displayDate: String,
-    val onDateSelected: (LocalDateTime) -> Unit
+    val onDateSelected: (LocalDate) -> Unit
 )

@@ -4,16 +4,33 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
 import com.mykhailo.vasylenko.common.state.MessageState
-import com.mykhailo.vasylenko.features.calculator.ui.state.CalculatorScreenState
-import com.mykhailo.vasylenko.features.calculator.ui.state.DateState
-import com.mykhailo.vasylenko.features.calculator.ui.state.ExchangeCardState
-import com.mykhailo.vasylenko.features.calculator.ui.state.ExchangeItemState
+import com.mykhailo.vasylenko.dispatchers.DispatcherIo
+import com.mykhailo.vasylenko.features.calculator.data.ExchangeStatRepository
+import com.mykhailo.vasylenko.features.calculator.domain.model.ExchangeStat
+import com.mykhailo.vasylenko.features.calculator.ui.state.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
-class CalculatorVM @Inject constructor() : ViewModel() {
+class CalculatorVM @Inject constructor(
+    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    private val statsRepository: ExchangeStatRepository
+) : ViewModel() {
+
+    private val originalStats = MutableStateFlow<List<ExchangeStat>>(
+        listOf()
+    )
+
+    private val dateState = MutableStateFlow(
+        DateState(
+            displayDate = "Click here to select date",
+            selectedDate = null,
+            onDateSelected = ::setDate
+        )
+    )
 
     private val messageState = MutableStateFlow(
         MessageState(
@@ -22,18 +39,12 @@ class CalculatorVM @Inject constructor() : ViewModel() {
         )
     )
 
-    private val dateState = MutableStateFlow(
-        DateState(
-            displayDate = "26.11.2022",
-            onDateSelected = {}
-        )
-    )
-
     private val originCurrencyState = MutableStateFlow(
         ExchangeItemState(
             value = "",
             onValueChanged = {},
             currency = null,
+            currencyCode = null,
             isLoading = false,
             isFieldEnabled = false,
             buttonTitle = "Select origin currency"
@@ -45,6 +56,7 @@ class CalculatorVM @Inject constructor() : ViewModel() {
             value = "",
             onValueChanged = {},
             currency = null,
+            currencyCode = null,
             isLoading = false,
             isFieldEnabled = false,
             buttonTitle = "Select trarget currency"
@@ -83,4 +95,55 @@ class CalculatorVM @Inject constructor() : ViewModel() {
             it.copy(message = message)
         }
     }
+
+    private fun setDate(date: LocalDate) {
+        dateState.update {
+            it.copy(
+                selectedDate = date,
+                displayDate = date.toDisplayDate()
+            )
+        }
+    }
+
+    fun setCurrency(
+        type: ExchangeItemType,
+        code: String,
+        name: String
+    ) {
+        when (type) {
+            ExchangeItemType.ORIGINAL -> {
+                updateOriginalCurrencyField(code, name)
+            }
+            ExchangeItemType.TARGET -> {
+                updateTargetCurrencyField(code, name)
+            }
+        }
+    }
+
+    private fun updateOriginalCurrencyField(
+        code: String,
+        name: String
+    ) {
+
+    }
+
+    private fun updateTargetCurrencyField(
+        code: String,
+        name: String
+    ) {
+        targetCurrencyState.update {
+            it.copy(
+                currencyCode = code,
+                currency = buildDisplayCurrencyText(code, name)
+            )
+        }
+    }
+
+    private fun buildDisplayCurrencyText(
+        code: String,
+        name: String
+    ): String = "$code - $name"
+
+    private fun LocalDate.toDisplayDate() =
+        "$year.$monthValue.$dayOfMonth"
 }

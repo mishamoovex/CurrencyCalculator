@@ -5,15 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.mykhailo.vasylenko.common.exeption.ExceptionHandler
 import com.mykhailo.vasylenko.common.exeption.isCoroutineCancellation
 import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 fun <T : ViewModel> T.executeAction(
+    dispatcher: CoroutineDispatcher = Dispatchers.Main,
     onLoading: suspend CoroutineScope.() -> Unit = {},
     onError: suspend CoroutineScope.(SnackbarMessage) -> Unit = {},
     toDo: suspend CoroutineScope.() -> Unit
-): Job = viewModelScope.launch {
+): Job = viewModelScope.launch(dispatcher) {
     try {
         onLoading.invoke(this)
         toDo.invoke(this)

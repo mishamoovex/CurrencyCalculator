@@ -30,7 +30,7 @@ buildscript {
                 splash: "androidx.core:core-splashscreen:1.0.0",
                 lib: "androidx.core:core-ktx:1.9.0",
                 navigation : "androidx.navigation:navigation-compose:$navigationVersin",
-
+                materialDesign    : "com.google.android.material:material:1.6.1",
         ]
 
         //Lifecycle RN https://developer.android.com/jetpack/androidx/releases/lifecycle#2.5.1
