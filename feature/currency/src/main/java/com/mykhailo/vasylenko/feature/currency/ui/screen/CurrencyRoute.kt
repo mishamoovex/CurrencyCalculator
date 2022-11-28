@@ -1,16 +1,18 @@
 package com.mykhailo.vasylenko.feature.currency.ui.screen
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.mykhailo.vasylenko.common.event.DataEvent
 import com.mykhailo.vasylenko.core.models.ExchangeItemSelectionResult
-import com.mykhailo.vasylenko.designsytem.theme.ApplicationTheme
+import com.mykhailo.vasylenko.designsytem.components.Toolbar
+import com.mykhailo.vasylenko.feature.currency.ui.screen.components.CurrencyItem
+import com.mykhailo.vasylenko.feature.currency.ui.state.CurrencyScreenState
 
 @Composable
 fun CurrencyRoute(
@@ -18,22 +20,52 @@ fun CurrencyRoute(
     navigateUp: () -> Unit,
     onCurrencySelected: (DataEvent<ExchangeItemSelectionResult>) -> Unit,
 ) {
-    CurrencyScreen()
+    val screenState by viewModel.screenState.collectAsState()
+
+    CurrencyScreen(
+        state = screenState,
+        onCurrencySelected = onCurrencySelected,
+        navigateUp = navigateUp
+    )
 }
 
 @Composable
-internal fun CurrencyScreen() {
+internal fun CurrencyScreen(
+    state: CurrencyScreenState,
+    navigateUp: () -> Unit,
+    onCurrencySelected: (DataEvent<ExchangeItemSelectionResult>) -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(
-            text = "Select currency",
-            color = ApplicationTheme.colors.text,
-            style = ApplicationTheme.typography.h4,
-            modifier = Modifier
-                .fillMaxWidth()
-                .statusBarsPadding(),
-            textAlign = TextAlign.Center
+        Toolbar(
+            title = "Select currency",
+            navigateUp = navigateUp,
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .navigationBarsPadding(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(state.currencies) { item ->
+                CurrencyItem(
+                    item = item,
+                    onClicked = {
+                        onCurrencySelected(
+                            DataEvent(
+                                ExchangeItemSelectionResult(
+                                    type = state.type,
+                                    code = it.code,
+                                    name = it.name
+                                )
+                            )
+                        )
+                    }
+                )
+            }
+        }
     }
 }
