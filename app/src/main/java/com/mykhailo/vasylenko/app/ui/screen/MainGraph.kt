@@ -4,16 +4,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.mykhailo.vasylenko.app.ui.components.SnackbarManager
+import com.mykhailo.vasylenko.app.ui.util.registerForResult
+import com.mykhailo.vasylenko.app.ui.util.sendNavigationResult
+import com.mykhailo.vasylenko.feature.currency.ui.screen.CurrencyRoute
 import com.mykhailo.vasylenko.feature.history.ui.screen.ExchangeHistoryRoute
 import com.mykhailo.vasylenko.features.calculator.ui.screen.CalculatorRoute
 
 internal sealed class MainGraph(val route: String) {
-    object Calculator : MainGraph(route = "calculator")
+    object Calculator : MainGraph(route = "calculator"){
+
+        const val RESULT_KEY_CURRENCY = "selected_currency"
+    }
 
     object History : MainGraph(route = "history")
+
+    object CurrencySelection : MainGraph(route = "currency?type={type}") {
+
+        private const val argKey = "type"
+
+        val arguments = listOf(
+            navArgument(name = argKey) { type = NavType.StringType }
+        )
+
+        fun navigationRoute(value: String) = "currency?$argKey=$value"
+    }
 }
 
 @Composable
@@ -28,19 +47,43 @@ internal fun MainNavHost(
         modifier = modifier
     ) {
 
-        composable(MainGraph.Calculator.route) {
+        composable(MainGraph.Calculator.route) { backStack ->
             CalculatorRoute(
                 viewModel = hiltViewModel(),
-                selectCurrency = {
-
+                selectCurrency = { type ->
+                    navHostController.navigate(
+                        route = MainGraph.CurrencySelection.navigationRoute(type.name)
+                    )
                 },
-                showMessage = snackbarManager::showMessage
+                showMessage = snackbarManager::showMessage,
+                selectedCurrency = backStack.registerForResult(
+                    key = MainGraph.Calculator.RESULT_KEY_CURRENCY
+                )
             )
         }
 
         composable(MainGraph.History.route) {
             ExchangeHistoryRoute(
                 viewModel = hiltViewModel()
+            )
+        }
+
+        composable(
+            route = MainGraph.CurrencySelection.route,
+            arguments = MainGraph.CurrencySelection.arguments
+        ){
+            CurrencyRoute(
+                viewModel = hiltViewModel(),
+                navigateUp = navHostController::navigateUp,
+                onCurrencySelected = {
+                    with(navHostController){
+                        sendNavigationResult(
+                            key = MainGraph.Calculator.RESULT_KEY_CURRENCY,
+                            data = it
+                        )
+                        navigateUp()
+                    }
+                }
             )
         }
 

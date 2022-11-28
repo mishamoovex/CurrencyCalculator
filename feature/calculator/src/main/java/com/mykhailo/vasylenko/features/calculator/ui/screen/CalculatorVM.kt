@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
 import com.mykhailo.vasylenko.common.state.MessageState
-import com.mykhailo.vasylenko.core.models.ExchangeItemType
+import com.mykhailo.vasylenko.core.models.ExchangeItemSelectionResult
 import com.mykhailo.vasylenko.dispatchers.DispatcherDefault
 import com.mykhailo.vasylenko.dispatchers.DispatcherIo
 import com.mykhailo.vasylenko.features.calculator.data.ExchangeStatRepository
@@ -26,6 +26,13 @@ class CalculatorVM @Inject constructor(
     private val statsRepository: ExchangeStatRepository
 ) : ViewModel() {
 
+    private val messageState = MutableStateFlow(
+        MessageState(
+            message = null,
+            onMessageShowed = { setMessage(null) }
+        )
+    )
+
     private val originalStats = MutableStateFlow<List<ExchangeStat>>(
         listOf()
     )
@@ -35,13 +42,6 @@ class CalculatorVM @Inject constructor(
             displayDate = "Click here to select date",
             selectedDate = null,
             onDateSelected = ::setDate
-        )
-    )
-
-    private val messageState = MutableStateFlow(
-        MessageState(
-            message = null,
-            onMessageShowed = { setMessage(null) }
         )
     )
 
@@ -85,7 +85,8 @@ class CalculatorVM @Inject constructor(
                 itemTarget = target,
                 showTargetCurrencyField = target.currencyCode != null
             ),
-            showCurrencyCalculator = date.selectedDate != null
+            showCurrencyCalculator = date.selectedDate != null,
+            onCurrencySelected = ::setCurrency
         )
     }
         .flowOn(defaultDispatcher)
@@ -100,7 +101,8 @@ class CalculatorVM @Inject constructor(
                     itemTarget = targetCurrencyState.value,
                     showTargetCurrencyField = false
                 ),
-                showCurrencyCalculator = false
+                showCurrencyCalculator = false,
+                onCurrencySelected = ::setCurrency
             )
         )
 
@@ -119,19 +121,15 @@ class CalculatorVM @Inject constructor(
         }
     }
 
-    fun setCurrency(
-        type: ExchangeItemType,
-        code: String,
-        name: String
-    ) {
-        when (type) {
-            ExchangeItemType.ORIGINAL -> {
-                updateOriginalCurrencyField(code, name)
-            }
-            ExchangeItemType.TARGET -> {
-                updateTargetCurrencyField(code, name)
-            }
-        }
+    private fun setCurrency(data: ExchangeItemSelectionResult) {
+//        when (type) {
+//            ExchangeItemType.ORIGINAL -> {
+//                updateOriginalCurrencyField(code, name)
+//            }
+//            ExchangeItemType.TARGET -> {
+//                updateTargetCurrencyField(code, name)
+//            }
+//        }
     }
 
     private fun updateOriginalCurrencyField(

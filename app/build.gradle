@@ -61,6 +61,7 @@ dependencies {
     implementation(project(":core:store"))
     implementation(project(":feature:history"))
     implementation(project(":feature:calculator"))
+    implementation(project(":feature:currency"))
 
     implementation coroutines.lib
 

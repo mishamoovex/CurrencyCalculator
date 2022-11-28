@@ -9,20 +9,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.mykhailo.vasylenko.common.event.DataEvent
 import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
+import com.mykhailo.vasylenko.core.models.ExchangeItemSelectionResult
+import com.mykhailo.vasylenko.core.models.ExchangeItemType
 import com.mykhailo.vasylenko.designsytem.components.elevationShadow
 import com.mykhailo.vasylenko.designsytem.theme.ApplicationTheme
 import com.mykhailo.vasylenko.features.calculator.ui.screen.components.CurrentDate
 import com.mykhailo.vasylenko.features.calculator.ui.screen.components.ExchangeCard
 import com.mykhailo.vasylenko.features.calculator.ui.screen.components.rememberDatePickerDialog
 import com.mykhailo.vasylenko.features.calculator.ui.state.CalculatorScreenState
-import com.mykhailo.vasylenko.core.models.ExchangeItemType
 
 @Composable
 fun CalculatorRoute(
     viewModel: CalculatorVM,
     selectCurrency: (ExchangeItemType) -> Unit,
-    showMessage: (SnackbarMessage) -> Unit
+    showMessage: (SnackbarMessage) -> Unit,
+    selectedCurrency: DataEvent<ExchangeItemSelectionResult>? = null
 ) {
 
     val screenState by viewModel.screenState.collectAsState()
@@ -30,7 +33,8 @@ fun CalculatorRoute(
     CalculatorScreen(
         screenState = screenState,
         selectCurrency = selectCurrency,
-        showMessage = showMessage
+        showMessage = showMessage,
+        selectedCurrency = selectedCurrency
     )
 }
 
@@ -38,7 +42,8 @@ fun CalculatorRoute(
 internal fun CalculatorScreen(
     screenState: CalculatorScreenState,
     selectCurrency: (ExchangeItemType) -> Unit,
-    showMessage: (SnackbarMessage) -> Unit
+    showMessage: (SnackbarMessage) -> Unit,
+    selectedCurrency: DataEvent<ExchangeItemSelectionResult>? = null
 ) {
     val datePickerDialog = rememberDatePickerDialog(
         onDateSelected = screenState.dateState.onDateSelected
@@ -68,7 +73,7 @@ internal fun CalculatorScreen(
                 .padding(horizontal = 16.dp)
                 .elevationShadow()
         )
-        if (screenState.showCurrencyCalculator){
+        if (screenState.showCurrencyCalculator) {
             Spacer(
                 modifier = Modifier.height(16.dp)
             )
@@ -86,4 +91,13 @@ internal fun CalculatorScreen(
             screenState.messageState.onMessageShowed()
         }
     }
+
+    selectedCurrency?.let { dataEvent ->
+        LaunchedEffect(dataEvent) {
+            dataEvent.consume {
+                screenState.onCurrencySelected(it)
+            }
+        }
+    }
+
 }
