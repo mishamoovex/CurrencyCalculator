@@ -11,13 +11,12 @@ import com.mykhailo.vasylenko.designsytem.components.elevationShadow
 import com.mykhailo.vasylenko.designsytem.theme.ApplicationTheme
 import com.mykhailo.vasylenko.features.calculator.ui.state.ExchangeCardState
 import com.mykhailo.vasylenko.features.calculator.ui.state.ExchangeItemState
-import com.mykhailo.vasylenko.core.models.ExchangeItemType
 
 @Composable
 fun ExchangeCard(
     modifier: Modifier = Modifier,
     state: ExchangeCardState,
-    selectCurrency: (ExchangeItemType) -> Unit
+    selectCurrency: () -> Unit
 ) {
     Surface(
         modifier = modifier
@@ -35,30 +34,25 @@ fun ExchangeCard(
                 )
         ) {
             ExchangeItem(
-                state = state.itemOriginal,
+                state = state.itemOriginal
+            )
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+            Divider(
+                modifier = Modifier.fillMaxWidth(),
+                color = ApplicationTheme.colors.textHint,
+                thickness = 1.dp
+            )
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+            ExchangeItem(
+                state = state.itemTarget,
                 onSelectCurrencyClicked = {
-                    selectCurrency(ExchangeItemType.ORIGINAL)
+                    selectCurrency()
                 }
             )
-            if (state.showTargetCurrencyField) {
-                Spacer(
-                    modifier = Modifier.height(16.dp)
-                )
-                Divider(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = ApplicationTheme.colors.textHint,
-                    thickness = 1.dp
-                )
-                Spacer(
-                    modifier = Modifier.height(16.dp)
-                )
-                ExchangeItem(
-                    state = state.itemTarget,
-                    onSelectCurrencyClicked = {
-                        selectCurrency(ExchangeItemType.TARGET)
-                    }
-                )
-            }
         }
     }
 }
@@ -70,7 +64,6 @@ private fun ExchangeCardPreview() {
         value = "200.67",
         onValueChanged = {},
         currency = "USD - United States Dollar",
-        buttonTitle = "Select original currency",
         isLoading = false,
         currencyCode = null,
         isFieldEnabled = true
@@ -78,16 +71,14 @@ private fun ExchangeCardPreview() {
     val stateTarget = ExchangeItemState(
         value = "",
         onValueChanged = {},
-        currency = null,
-        buttonTitle = "Select target currency",
+        currency = "Select currency",
         isLoading = false,
         currencyCode = null,
         isFieldEnabled = true
     )
     val state = ExchangeCardState(
         stateOrigin,
-        stateTarget,
-        false
+        stateTarget
     )
     ApplicationTheme {
         ExchangeCard(

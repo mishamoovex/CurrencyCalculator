@@ -9,6 +9,6 @@ interface ApiNbu {
     @GET("v1/statdirectory/exchangenew?json")
     suspend fun getState(
         @Query("date") date: String?,
-        @Query("valcode") currencyCode: String?
+        @Query("valcode") currencyCode: String? = null
     ): List<NetworkStatDataItem>
 }

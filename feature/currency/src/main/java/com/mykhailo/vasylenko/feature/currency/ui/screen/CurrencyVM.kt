@@ -1,12 +1,10 @@
 package com.mykhailo.vasylenko.feature.currency.ui.screen
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
 import com.mykhailo.vasylenko.common.state.MessageState
 import com.mykhailo.vasylenko.common.vm.executeAction
-import com.mykhailo.vasylenko.core.models.ExchangeItemType
 import com.mykhailo.vasylenko.dispatchers.DispatcherIo
 import com.mykhailo.vasylenko.feature.currency.data.CurrencyRepository
 import com.mykhailo.vasylenko.feature.currency.domain.ExchangeCurrency
@@ -19,12 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CurrencyVM @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
-    private val repository: CurrencyRepository,
-    savedStateHandle: SavedStateHandle
+    private val repository: CurrencyRepository
 ) : ViewModel() {
-
-    private val currencyType: ExchangeItemType =
-        ExchangeItemType.valueOf(checkNotNull(savedStateHandle["type"]))
 
     private val messageState = MutableStateFlow(
         MessageState(
@@ -41,16 +35,14 @@ class CurrencyVM @Inject constructor(
     ) { m, c ->
         CurrencyScreenState(
             messageState = m,
-            currencies = c,
-            type = currencyType
+            currencies = c
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(),
         initialValue = CurrencyScreenState(
             messageState = messageState.value,
-            currencies = currencies.value,
-            type = currencyType
+            currencies = currencies.value
         )
     )
 

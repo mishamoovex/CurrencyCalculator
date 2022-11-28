@@ -60,7 +60,6 @@ internal fun CurrencyScreen(
                         onCurrencySelected(
                             DataEvent(
                                 ExchangeItemSelectionResult(
-                                    type = state.type,
                                     code = it.code,
                                     name = it.name
                                 )

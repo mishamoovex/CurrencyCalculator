@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import com.mykhailo.vasylenko.common.event.DataEvent
 import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
 import com.mykhailo.vasylenko.core.models.ExchangeItemSelectionResult
-import com.mykhailo.vasylenko.core.models.ExchangeItemType
 import com.mykhailo.vasylenko.designsytem.components.elevationShadow
 import com.mykhailo.vasylenko.designsytem.theme.ApplicationTheme
 import com.mykhailo.vasylenko.features.calculator.ui.screen.components.CurrentDate
@@ -23,7 +22,7 @@ import com.mykhailo.vasylenko.features.calculator.ui.state.CalculatorScreenState
 @Composable
 fun CalculatorRoute(
     viewModel: CalculatorVM,
-    selectCurrency: (ExchangeItemType) -> Unit,
+    selectCurrency: () -> Unit,
     showMessage: (SnackbarMessage) -> Unit,
     selectedCurrency: DataEvent<ExchangeItemSelectionResult>? = null
 ) {
@@ -41,7 +40,7 @@ fun CalculatorRoute(
 @Composable
 internal fun CalculatorScreen(
     screenState: CalculatorScreenState,
-    selectCurrency: (ExchangeItemType) -> Unit,
+    selectCurrency: () -> Unit,
     showMessage: (SnackbarMessage) -> Unit,
     selectedCurrency: DataEvent<ExchangeItemSelectionResult>? = null
 ) {

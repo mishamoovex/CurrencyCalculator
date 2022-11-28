@@ -1,5 +1,6 @@
 package com.mykhailo.vasylenko.features.calculator.ui.screen.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
@@ -7,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mykhailo.vasylenko.designsytem.theme.ApplicationTheme
@@ -16,19 +18,38 @@ import com.mykhailo.vasylenko.features.calculator.ui.state.ExchangeItemState
 fun ExchangeItem(
     modifier: Modifier = Modifier,
     state: ExchangeItemState,
-    onSelectCurrencyClicked: () -> Unit
+    onSelectCurrencyClicked: (() -> Unit)? = null   
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start
     ) {
-        ExchangeCurrency(
-            currency = state.currency,
-            buttonTitle = state.buttonTitle,
-            isLoading = state.isLoading,
-            onSelectCurrencyClicked = onSelectCurrencyClicked
-        )
 
+        if (onSelectCurrencyClicked != null){
+            ActionButton(
+                onClick = onSelectCurrencyClicked,
+                modifier = Modifier
+                    .width(250.dp)
+                    .height(50.dp)
+                    .clickable {
+                        onSelectCurrencyClicked()
+                    },
+                isLoading = state.isLoading,
+            ) {
+                Text(
+                    text = state.currency,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
+        }else {
+           Text(
+               text = state.currency,
+               color = ApplicationTheme.colors.text,
+               style = ApplicationTheme.typography.subtitle1
+           )
+        }
+        
         Spacer(
             modifier = Modifier.height(16.dp)
         )
@@ -53,40 +74,6 @@ fun ExchangeItem(
     }
 }
 
-@Composable
-private fun ExchangeCurrency(
-    modifier: Modifier = Modifier,
-    currency: String?,
-    buttonTitle: String,
-    isLoading: Boolean,
-    onSelectCurrencyClicked: () -> Unit
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(50.dp),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        if (currency == null) {
-            ActionButton(
-                onClick = onSelectCurrencyClicked,
-                modifier = Modifier
-                    .width(210.dp)
-                    .height(50.dp),
-                isLoading = isLoading,
-            ) {
-                Text(text = buttonTitle)
-            }
-        } else {
-            Text(
-                text = currency,
-                color = ApplicationTheme.colors.text,
-                style = ApplicationTheme.typography.subtitle1
-            )
-        }
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun ExchangeItemPreview_HasCurrency() {
@@ -94,7 +81,6 @@ private fun ExchangeItemPreview_HasCurrency() {
         value = "200.5",
         onValueChanged = {},
         currency = "USD - United States Dollar",
-        buttonTitle = "Select original currency",
         isLoading = false,
         currencyCode = null,
         isFieldEnabled = true
@@ -113,8 +99,7 @@ private fun ExchangeItemPreview_NoCurrency() {
     val state = ExchangeItemState(
         value = "",
         onValueChanged = {},
-        currency = null,
-        buttonTitle = "Select original currency",
+        currency = "Select currency",
         isLoading = false,
         currencyCode = null,
         isFieldEnabled = true
