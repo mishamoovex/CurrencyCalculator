@@ -46,7 +46,6 @@ class CalculatorVM @Inject constructor(
             currency = null,
             currencyCode = null,
             isLoading = false,
-            isFieldEnabled = false,
             buttonTitle = "Select origin currency"
         )
     )
@@ -58,7 +57,6 @@ class CalculatorVM @Inject constructor(
             currency = null,
             currencyCode = null,
             isLoading = false,
-            isFieldEnabled = false,
             buttonTitle = "Select trarget currency"
         )
     )
@@ -75,7 +73,8 @@ class CalculatorVM @Inject constructor(
             cardState = ExchangeCardState(
                 itemOriginal = origin,
                 itemTarget = target
-            )
+            ),
+            showCurrencyCalculator = date.selectedDate != null
         )
     }.stateIn(
         scope = viewModelScope,
@@ -86,7 +85,8 @@ class CalculatorVM @Inject constructor(
             cardState = ExchangeCardState(
                 itemOriginal = originCurrencyState.value,
                 itemTarget = targetCurrencyState.value
-            )
+            ),
+            showCurrencyCalculator = false
         )
     )
 

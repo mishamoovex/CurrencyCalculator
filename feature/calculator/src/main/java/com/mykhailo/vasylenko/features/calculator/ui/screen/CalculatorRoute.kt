@@ -68,14 +68,16 @@ internal fun CalculatorScreen(
                 .padding(horizontal = 16.dp)
                 .elevationShadow()
         )
-        Spacer(
-            modifier = Modifier.height(16.dp)
-        )
-        ExchangeCard(
-            state = screenState.cardState,
-            selectCurrency = selectCurrency,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
+        if (screenState.showCurrencyCalculator){
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+            ExchangeCard(
+                state = screenState.cardState,
+                selectCurrency = selectCurrency,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
     }
 
     LaunchedEffect(screenState.messageState) {

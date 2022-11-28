@@ -6,6 +6,5 @@ data class ExchangeItemState(
     val currency: String?,
     val currencyCode: String?,
     val isLoading: Boolean,
-    val isFieldEnabled: Boolean,
     val buttonTitle: String
 )
