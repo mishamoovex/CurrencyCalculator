@@ -50,7 +50,10 @@ internal fun CurrencyScreen(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(state.currencies) { item ->
+            items(
+                items = state.currencies,
+                key = { it.hashCode() }
+            ) { item ->
                 CurrencyItem(
                     item = item,
                     onClicked = {
