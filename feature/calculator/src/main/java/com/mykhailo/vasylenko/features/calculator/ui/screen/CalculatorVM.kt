@@ -8,7 +8,7 @@ import com.mykhailo.vasylenko.common.vm.executeAction
 import com.mykhailo.vasylenko.core.models.ExchangeItemSelectionResult
 import com.mykhailo.vasylenko.dispatchers.DispatcherDefault
 import com.mykhailo.vasylenko.dispatchers.DispatcherIo
-import com.mykhailo.vasylenko.features.calculator.data.ExchangeStatRepository
+import com.mykhailo.vasylenko.features.calculator.data.stat.ExchangeStatRepository
 import com.mykhailo.vasylenko.features.calculator.domain.ConvertCurrencyUseCase
 import com.mykhailo.vasylenko.features.calculator.ui.state.CalculatorScreenState
 import com.mykhailo.vasylenko.features.calculator.ui.state.DateState

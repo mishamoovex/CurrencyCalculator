@@ -38,6 +38,7 @@ dependencies {
     implementation(project(":core:models"))
     implementation(project(":core:dispatchers"))
     implementation(project(":core:store"))
+    implementation(project(":core:db"))
 
     implementation coroutines.lib
 

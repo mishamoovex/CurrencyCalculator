@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/common" />
+            <option value="$PROJECT_DIR$/core/db" />
             <option value="$PROJECT_DIR$/core/designsytem" />
             <option value="$PROJECT_DIR$/core/dispatchers" />
             <option value="$PROJECT_DIR$/core/models" />

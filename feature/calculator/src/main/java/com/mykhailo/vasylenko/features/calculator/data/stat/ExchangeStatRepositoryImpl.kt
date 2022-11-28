@@ -1,11 +1,11 @@
-package com.mykhailo.vasylenko.features.calculator.data
+package com.mykhailo.vasylenko.features.calculator.data.stat
 
 import com.mykhailo.vasylenko.network.api.ApiNbu
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class ExchangeStatRepositoryImpl @Inject constructor(
+internal class ExchangeStatRepositoryImpl @Inject constructor(
     private val api: ApiNbu
 ) : ExchangeStatRepository {
 

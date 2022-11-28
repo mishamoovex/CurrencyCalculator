@@ -1,4 +1,4 @@
-package com.mykhailo.vasylenko.features.calculator.data
+package com.mykhailo.vasylenko.features.calculator.data.stat
 
 import java.time.LocalDate
 
