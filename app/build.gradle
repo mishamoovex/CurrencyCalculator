@@ -58,6 +58,7 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:common"))
     implementation(project(":core:models"))
+    implementation(project(":core:dispatchers"))
     implementation(project(":core:store"))
     implementation(project(":feature:history"))
     implementation(project(":feature:calculator"))

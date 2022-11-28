@@ -7,12 +7,15 @@ import com.mykhailo.vasylenko.app.ui.state.MainScreenState
 import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
 import com.mykhailo.vasylenko.common.state.MessageState
 import com.mykhailo.vasylenko.common.vm.executeAction
+import com.mykhailo.vasylenko.dispatchers.DispatcherIo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
 internal class MainActivityVM @Inject constructor(
+    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val repository: ExchangeCurrenciesRepository
 ) : ViewModel() {
 
@@ -48,6 +51,7 @@ internal class MainActivityVM @Inject constructor(
 
     private fun cacheExchangeCurrencies() {
         executeAction(
+            dispatcher = ioDispatcher,
             onError = { setMessage(it) },
             toDo = {
                 repository.loadExchangeCurrencies()
