@@ -35,6 +35,7 @@ dependencies {
     implementation(project(":core:designsytem"))
     implementation(project(":core:network"))
     implementation(project(":core:common"))
+    implementation(project(":core:models"))
     implementation(project(":core:dispatchers"))
     implementation(project(":core:store"))
 

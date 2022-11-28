@@ -16,7 +16,7 @@ import com.mykhailo.vasylenko.features.calculator.ui.screen.components.CurrentDa
 import com.mykhailo.vasylenko.features.calculator.ui.screen.components.ExchangeCard
 import com.mykhailo.vasylenko.features.calculator.ui.screen.components.rememberDatePickerDialog
 import com.mykhailo.vasylenko.features.calculator.ui.state.CalculatorScreenState
-import com.mykhailo.vasylenko.features.calculator.ui.state.ExchangeItemType
+import com.mykhailo.vasylenko.core.models.ExchangeItemType
 
 @Composable
 fun CalculatorRoute(

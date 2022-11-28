@@ -11,7 +11,7 @@ import com.mykhailo.vasylenko.designsytem.components.elevationShadow
 import com.mykhailo.vasylenko.designsytem.theme.ApplicationTheme
 import com.mykhailo.vasylenko.features.calculator.ui.state.ExchangeCardState
 import com.mykhailo.vasylenko.features.calculator.ui.state.ExchangeItemState
-import com.mykhailo.vasylenko.features.calculator.ui.state.ExchangeItemType
+import com.mykhailo.vasylenko.core.models.ExchangeItemType
 
 @Composable
 fun ExchangeCard(

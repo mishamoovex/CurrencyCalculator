@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/core/common" />
             <option value="$PROJECT_DIR$/core/designsytem" />
             <option value="$PROJECT_DIR$/core/dispatchers" />
+            <option value="$PROJECT_DIR$/core/models" />
             <option value="$PROJECT_DIR$/core/network" />
             <option value="$PROJECT_DIR$/core/store" />
             <option value="$PROJECT_DIR$/feature" />
