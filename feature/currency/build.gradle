@@ -40,6 +40,8 @@ dependencies {
 
     implementation coroutines.lib
 
+    implementation lifecycle.viewModelCompose
+
     //Compose UI
     implementation compose.ui
     implementation compose.material
