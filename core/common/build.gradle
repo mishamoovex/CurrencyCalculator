@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+    id 'de.mannodermaus.android-junit5'
 }
 
 android {
@@ -12,6 +13,8 @@ android {
     defaultConfig {
         minSdk gradleDependencies.minSdk
         targetSdk gradleDependencies.targetSdk
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -32,4 +35,13 @@ dependencies {
     //Hilt
     implementation hiltDependencies.lib
     kapt hiltDependencies.kapt
+
+    //Unit tests
+    testImplementation coroutines.test
+    testImplementation junit.jupiter
+    testImplementation junit.jupiterParameterizedTests
+    testRuntimeOnly junit.jupiterEngine
+    testImplementation kotest.assertions
+    testImplementation mockk.lib
+    testImplementation mockk.agent
 }
