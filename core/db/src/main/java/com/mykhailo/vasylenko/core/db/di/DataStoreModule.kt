@@ -1,7 +1,9 @@
 package com.mykhailo.vasylenko.core.db.di
 
-import com.mykhailo.vasylenko.core.db.data_store.ExchangeHistoryDataStore
-import com.mykhailo.vasylenko.core.db.data_store.ExchangeHistoryDataStoreImpl
+import com.mykhailo.vasylenko.core.db.data_store.history.ExchangeHistoryDataStore
+import com.mykhailo.vasylenko.core.db.data_store.history.ExchangeHistoryDataStoreImpl
+import com.mykhailo.vasylenko.core.db.data_store.rates.ExchangeRateDataStore
+import com.mykhailo.vasylenko.core.db.data_store.rates.ExchangeRateDataStoreImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,4 +17,7 @@ internal interface DataStoreModule {
     @Binds
     @Singleton
     fun bindHistoryDataStore(impl: ExchangeHistoryDataStoreImpl): ExchangeHistoryDataStore
+
+    @Binds
+    fun bindRateDataStore(impl: ExchangeRateDataStoreImpl): ExchangeRateDataStore
 }

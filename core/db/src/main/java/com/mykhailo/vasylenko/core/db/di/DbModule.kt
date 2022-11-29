@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.mykhailo.vasylenko.core.db.db.AppDatabase
 import com.mykhailo.vasylenko.core.db.db.ExchangeHistoryDao
+import com.mykhailo.vasylenko.core.db.db.ExchangeRateDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,5 +30,11 @@ internal object DbModule {
     @Singleton
     fun provideExchangeHistoryDao(
         db: AppDatabase
-    ): ExchangeHistoryDao = db.userDao()
+    ): ExchangeHistoryDao = db.historyDao()
+
+    @Provides
+    @Singleton
+    fun provideExchangeRateDao(
+        db: AppDatabase
+    ): ExchangeRateDao = db.ratesDao()
 }

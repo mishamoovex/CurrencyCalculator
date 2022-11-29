@@ -1,19 +1,19 @@
 package com.mykhailo.vasylenko.features.calculator.domain
 
 import com.mykhailo.vasylenko.features.calculator.data.history.ExchangeHistoryRepository
+import com.mykhailo.vasylenko.features.calculator.data.stat.ExchangeStatRepository
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import javax.inject.Inject
 
 internal class ConvertCurrencyUseCaseImpl @Inject constructor(
-    private val repository: ExchangeHistoryRepository
+    private val historyRepository: ExchangeHistoryRepository,
+    private val statRepository: ExchangeStatRepository
 ) : ConvertCurrencyUseCase {
 
     private val formatter = DecimalFormat("#.##").apply {
         roundingMode = RoundingMode.CEILING
     }
-
-    private val targetRate = 1.5
 
     override suspend fun invoke(
         isOrigin: Boolean,
@@ -22,7 +22,7 @@ internal class ConvertCurrencyUseCaseImpl @Inject constructor(
     ): String {
         val exchangedCurrency = calculateValue(isOrigin, value, currencyCode)
 
-        repository.saveTransaction(
+        historyRepository.saveTransaction(
             targetCurrencyCode = if (isOrigin) currencyCode else "UAH",
             originCurrencyCode = if (isOrigin) "UAH" else currencyCode,
             valueOrigin = value,
@@ -32,23 +32,21 @@ internal class ConvertCurrencyUseCaseImpl @Inject constructor(
         return exchangedCurrency
     }
 
-    private fun calculateValue(
+    private suspend fun calculateValue(
         isOrigin: Boolean,
         value: String,
         currencyCode: String
     ): String {
         val currency = value.toDouble().round()
-        val rate = getRate(currencyCode)
+        val rate = statRepository.getRate(currencyCode)
         return if (isOrigin) {
-            currency * rate
-        } else {
             currency / rate
+        } else {
+            currency * rate
         }
             .round()
             .toString()
     }
 
     private fun Double.round(): Double = formatter.format(this).toDouble()
-
-    private fun getRate(currencyCode: String) = targetRate
 }

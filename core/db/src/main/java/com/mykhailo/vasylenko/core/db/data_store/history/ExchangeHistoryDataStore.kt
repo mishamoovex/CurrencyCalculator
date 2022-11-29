@@ -1,4 +1,4 @@
-package com.mykhailo.vasylenko.core.db.data_store
+package com.mykhailo.vasylenko.core.db.data_store.history
 
 import com.mykhailo.vasylenko.core.db.models.ExchangeHistory
 

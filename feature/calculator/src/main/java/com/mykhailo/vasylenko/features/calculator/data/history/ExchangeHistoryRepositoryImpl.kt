@@ -1,6 +1,6 @@
 package com.mykhailo.vasylenko.features.calculator.data.history
 
-import com.mykhailo.vasylenko.core.db.data_store.ExchangeHistoryDataStore
+import com.mykhailo.vasylenko.core.db.data_store.history.ExchangeHistoryDataStore
 import com.mykhailo.vasylenko.core.db.models.ExchangeHistory
 import java.time.LocalDateTime
 import javax.inject.Inject
