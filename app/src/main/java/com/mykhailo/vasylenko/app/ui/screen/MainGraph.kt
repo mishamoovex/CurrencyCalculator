@@ -50,7 +50,10 @@ internal fun MainNavHost(
 
         composable(MainGraph.History.route) {
             ExchangeHistoryRoute(
-                viewModel = hiltViewModel()
+                viewModel = hiltViewModel(),
+                navigateUp = {
+                    navHostController.navigateUp()
+                }
             )
         }
 
