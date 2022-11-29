@@ -4,7 +4,7 @@
 
 - There wasn't any UI attached to the task and I decided to use the most straightforward UI possible because it wasn't the aim of the challenge.
 - I worked with currencies as with regular numbers. It's not a proper way to do such calculations but it wasn't in the requirements and I decided to simplify development.
-- I didn't find any requirements for automated tests, but I decided to add a few of them to show you that it matters for software development. You can find them inside the :common module in the "test" source set folder.
+- I didn't find any requirements for automated tests, but I decided to add a few of them to show you that it matters for software development. You can find them inside the [:common](https://github.com/mishamoovex/CurrencyCalculator/tree/master/core/common/src/test/java/com/mykhailo/vasylenko/common) module in the "test" source set folder.
 
 
 
