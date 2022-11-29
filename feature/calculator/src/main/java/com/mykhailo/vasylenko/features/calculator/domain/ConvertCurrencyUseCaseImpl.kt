@@ -23,8 +23,8 @@ internal class ConvertCurrencyUseCaseImpl @Inject constructor(
         val exchangedCurrency = calculateValue(isOrigin, value, currencyCode)
 
         repository.saveTransaction(
-            targetCurrencyCode = "UAH",
-            originCurrencyCode = currencyCode,
+            targetCurrencyCode = if (isOrigin) currencyCode else "UAH",
+            originCurrencyCode = if (isOrigin) "UAH" else currencyCode,
             valueOrigin = value,
             exchangedCurrency
         )
