@@ -1,4 +1,4 @@
-## Hello dear colleague. I'll hope you are doing well.
+## Hello dear colleague. I'll hope you are doing well. I decided to follow your advice from "Motivation of Code Tests" and spent more time on coding rather than in the interviewing later. I'll hope you'll enjoy it.
 
  I want to add a few notes about the test challenge:
 
