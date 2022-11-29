@@ -44,7 +44,10 @@ internal fun MainNavHost(
                 showMessage = snackbarManager::showMessage,
                 selectedCurrency = backStack.registerForResult(
                     key = MainGraph.Calculator.RESULT_KEY_CURRENCY
-                )
+                ),
+                toTransactions = {
+                    navHostController.navigate(MainGraph.History.route)
+                }
             )
         }
 
@@ -53,7 +56,8 @@ internal fun MainNavHost(
                 viewModel = hiltViewModel(),
                 navigateUp = {
                     navHostController.navigateUp()
-                }
+                },
+                showMessage = snackbarManager::showMessage
             )
         }
 
@@ -69,7 +73,8 @@ internal fun MainNavHost(
                         )
                         navigateUp()
                     }
-                }
+                },
+                showMessage = snackbarManager::showMessage
             )
         }
 

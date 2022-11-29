@@ -1,5 +1,6 @@
 package com.mykhailo.vasylenko.features.calculator.ui.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -7,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.mykhailo.vasylenko.common.event.DataEvent
@@ -24,6 +26,7 @@ fun CalculatorRoute(
     viewModel: CalculatorVM,
     selectCurrency: () -> Unit,
     showMessage: (SnackbarMessage) -> Unit,
+    toTransactions: () -> Unit,
     selectedCurrency: DataEvent<ExchangeItemSelectionResult>? = null
 ) {
 
@@ -33,7 +36,8 @@ fun CalculatorRoute(
         screenState = screenState,
         selectCurrency = selectCurrency,
         showMessage = showMessage,
-        selectedCurrency = selectedCurrency
+        selectedCurrency = selectedCurrency,
+        toTransactions = toTransactions
     )
 }
 
@@ -42,6 +46,7 @@ internal fun CalculatorScreen(
     screenState: CalculatorScreenState,
     selectCurrency: () -> Unit,
     showMessage: (SnackbarMessage) -> Unit,
+    toTransactions: () -> Unit,
     selectedCurrency: DataEvent<ExchangeItemSelectionResult>? = null
 ) {
     val datePickerDialog = rememberDatePickerDialog(
@@ -80,6 +85,19 @@ internal fun CalculatorScreen(
                 state = screenState.cardState,
                 selectCurrency = selectCurrency,
                 modifier = Modifier.padding(horizontal = 16.dp)
+            )
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+            Text(
+                text = "Show latest transactions",
+                style = ApplicationTheme.typography.h6.copy(
+                    fontWeight = FontWeight.Bold
+                ),
+                color = ApplicationTheme.colors.text,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .clickable { toTransactions() }
             )
         }
     }

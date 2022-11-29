@@ -4,11 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mykhailo.vasylenko.common.event.DataEvent
+import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
 import com.mykhailo.vasylenko.core.models.ExchangeItemSelectionResult
 import com.mykhailo.vasylenko.designsytem.components.Toolbar
 import com.mykhailo.vasylenko.feature.currency.ui.screen.components.CurrencyItem
@@ -18,21 +20,24 @@ import com.mykhailo.vasylenko.feature.currency.ui.state.CurrencyScreenState
 fun CurrencyRoute(
     viewModel: CurrencyVM,
     navigateUp: () -> Unit,
+    showMessage: (SnackbarMessage) -> Unit,
     onCurrencySelected: (DataEvent<ExchangeItemSelectionResult>) -> Unit,
 ) {
     val screenState by viewModel.screenState.collectAsState()
 
     CurrencyScreen(
-        state = screenState,
+        screenState = screenState,
         onCurrencySelected = onCurrencySelected,
-        navigateUp = navigateUp
+        navigateUp = navigateUp,
+        showMessage = showMessage
     )
 }
 
 @Composable
 internal fun CurrencyScreen(
-    state: CurrencyScreenState,
+    screenState: CurrencyScreenState,
     navigateUp: () -> Unit,
+    showMessage: (SnackbarMessage) -> Unit,
     onCurrencySelected: (DataEvent<ExchangeItemSelectionResult>) -> Unit
 ) {
     Column(
@@ -51,7 +56,7 @@ internal fun CurrencyScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(
-                items = state.currencies,
+                items = screenState.currencies,
                 key = { it.hashCode() }
             ) { item ->
                 CurrencyItem(
@@ -68,6 +73,13 @@ internal fun CurrencyScreen(
                     }
                 )
             }
+        }
+    }
+
+    LaunchedEffect(screenState.messageState) {
+        screenState.messageState.message?.let { message ->
+            showMessage(message)
+            screenState.messageState.onMessageShowed()
         }
     }
 }

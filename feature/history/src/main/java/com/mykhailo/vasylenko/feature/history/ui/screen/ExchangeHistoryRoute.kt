@@ -5,11 +5,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.mykhailo.vasylenko.common.exeption.SnackbarMessage
 import com.mykhailo.vasylenko.designsytem.components.Toolbar
 import com.mykhailo.vasylenko.designsytem.theme.ApplicationTheme
 import com.mykhailo.vasylenko.feature.history.ui.screen.components.ExchangeTransactionItem
@@ -18,21 +20,24 @@ import com.mykhailo.vasylenko.feature.history.ui.state.ExchangeHistoryScreenStat
 @Composable
 fun ExchangeHistoryRoute(
     viewModel: ExchangeHistoryVM,
-    navigateUp: () -> Unit
-) {
+    navigateUp: () -> Unit,
+    showMessage: (SnackbarMessage) -> Unit
+    ) {
     val screenState by viewModel.screenState.collectAsState()
 
     ExchangeHistoryScreen(
-        state = screenState,
-        navigateUp = navigateUp
+        screenState = screenState,
+        navigateUp = navigateUp,
+        showMessage = showMessage
     )
 }
 
 @Composable
 internal fun ExchangeHistoryScreen(
-    state: ExchangeHistoryScreenState,
-    navigateUp: () -> Unit
-) {
+    screenState: ExchangeHistoryScreenState,
+    navigateUp: () -> Unit,
+    showMessage: (SnackbarMessage) -> Unit
+    ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -42,8 +47,8 @@ internal fun ExchangeHistoryScreen(
             modifier = Modifier.padding(horizontal = 16.dp)
         )
 
-        if (state.currencies != null) {
-            if (state.currencies.isNotEmpty()) {
+        if (screenState.currencies != null) {
+            if (screenState.currencies.isNotEmpty()) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
@@ -52,7 +57,7 @@ internal fun ExchangeHistoryScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(
-                        items = state.currencies,
+                        items = screenState.currencies,
                         key = { it.hashCode() }
                     ) { item ->
                         ExchangeTransactionItem(item = item)
@@ -70,6 +75,13 @@ internal fun ExchangeHistoryScreen(
                     )
                 }
             }
+        }
+    }
+
+    LaunchedEffect(screenState.messageState) {
+        screenState.messageState.message?.let { message ->
+            showMessage(message)
+            screenState.messageState.onMessageShowed()
         }
     }
 }
