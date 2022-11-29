@@ -4,7 +4,6 @@ import com.mykhailo.vasylenko.core.db.data_store.history.ExchangeHistoryDataStor
 import com.mykhailo.vasylenko.feature.history.domain.ExchangeTransaction
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import javax.inject.Inject
 
 internal class ExchangeHistoryRepositoryImpl @Inject constructor(
@@ -27,7 +26,7 @@ internal class ExchangeHistoryRepositoryImpl @Inject constructor(
             }
 
     private fun LocalDateTime.toDisplayFormat(): String =
-        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL).run {
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").run {
             format(this)
         }
 
@@ -36,6 +35,6 @@ internal class ExchangeHistoryRepositoryImpl @Inject constructor(
         originCurrencyCode: String,
         valueOrigin: String,
         valueTarget: String
-    ): String = "$originCurrencyCode $valueOrigin -> $targetCurrencyCode $valueTarget "
+    ): String = "$originCurrencyCode $valueOrigin -> $targetCurrencyCode $valueTarget"
 
 }

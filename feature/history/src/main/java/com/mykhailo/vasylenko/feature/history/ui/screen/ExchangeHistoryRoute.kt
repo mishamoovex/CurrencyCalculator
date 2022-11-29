@@ -57,8 +57,7 @@ internal fun ExchangeHistoryScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(
-                        items = screenState.currencies,
-                        key = { it.hashCode() }
+                        items = screenState.currencies
                     ) { item ->
                         ExchangeTransactionItem(item = item)
                     }
